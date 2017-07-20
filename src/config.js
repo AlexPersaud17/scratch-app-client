@@ -1,5 +1,8 @@
 export default {
   MAX_ATTACHMENT_SIZE: 5000000,
+  s3: {
+    BUCKET: 'ap-scratch-app-upload'
+  },
   apiGateway: {
     URL: 'https://em2ybqsonh.execute-api.us-east-1.amazonaws.com/prod',
     REGION: 'us-east-1',
