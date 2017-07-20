@@ -8,6 +8,7 @@ import {
 import LoaderButton from '../components/LoaderButton';
 import config from '../config.js';
 import './NewNote.css';
+import { invokeApig } from '../libs/awsLib';
 
 class NewNote extends Component {
   constructor(props) {
@@ -44,6 +45,26 @@ class NewNote extends Component {
     }
 
     this.setState({ isLoading: true });
+
+    try {
+      await this.createNote({
+        content: this.state.content,
+      });
+      this.props.history.push('/');
+    }
+    catch(e) {
+      alert(e);
+      this.setState({ isLoading: false });
+    }
+
+  }
+
+  createNote(note) {
+    return invokeApig({
+      path: '/notes',
+      method: 'POST',
+      body: note,
+    }, this.props.userToken);
   }
 
   render() {
